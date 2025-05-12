@@ -1,0 +1,31 @@
+import { Injectable } from '@nestjs/common';
+import { TransactionsRepository } from '../../infra/repositories/transactions.repository';
+
+@Injectable()
+export class GetStatisticsUseCase {
+  constructor(
+    private readonly transactionsRepository: TransactionsRepository,
+  ) {}
+
+  execute() {
+    const now = new Date();
+    const transactions = this.transactionsRepository
+      .findAll()
+      .filter((t) => now.getTime() - t.timestamp.getTime() <= 60000);
+
+    const amounts = transactions.map((t) => t.amount);
+    const count = amounts.length;
+    const sum = amounts.reduce((a, b) => a + b, 0);
+    const avg = count ? sum / count : 0;
+    const min = count ? Math.min(...amounts) : 0;
+    const max = count ? Math.max(...amounts) : 0;
+
+    return {
+      count,
+      sum,
+      avg,
+      min,
+      max,
+    };
+  }
+}
