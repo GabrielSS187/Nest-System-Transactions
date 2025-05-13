@@ -1,15 +1,37 @@
+version: '3.9'
+
 services:
   nest-api:
     build: .
-    ports:
-      - "3000:3000"
     env_file:
       - .env
     environment:
       - NODE_ENV=${NODE_ENV}
       - LOG_OUTPUT=${LOG_OUTPUT}
-    restart: unless-stopped
     volumes:
-      - ./logs:/app/logs
+      - .:/app
+      - /app/node_modules
+      - ./logs:/app/logs # Este será montado sempre, mas pode ser inofensivo no dev
+    command: yarn start:dev
+    ports:
+      - '3000:3000'
+    restart: unless-stopped
     profiles:
+      - dev
       - prod
+
+  tests:
+    build: .
+    command: sh -c "yarn test && yarn test:e2e"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - LOG_OUTPUT=${LOG_OUTPUT}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - nest-api
+    profiles:
+      - test
