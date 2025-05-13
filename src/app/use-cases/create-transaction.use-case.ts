@@ -20,7 +20,7 @@ export class CreateTransactionUseCase {
     private readonly gateway: StatisticsGateway,
   ) {}
 
-  execute(input: CreateTransactionInput): void {
+  execute(input: CreateTransactionInput): Transaction {
     const transaction = new Transaction(input.amount, input.timestamp);
 
     this.transactionsRepository.create(transaction);
@@ -31,5 +31,7 @@ export class CreateTransactionUseCase {
         timestamp: input.timestamp,
       });
     }
+
+    return transaction;
   }
 }

@@ -24,8 +24,8 @@ export class TransactionsController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() dto: CreateTransactionDto): void {
-    const timestamp = new Date(dto.timestamp);
+  create(@Body() dto: CreateTransactionDto) {
+    const timestamp = dto.timestamp ? new Date(dto.timestamp) : new Date();
 
     if (isNaN(timestamp.getTime())) {
       throw new BadRequestException('Invalid timestamp');
@@ -38,7 +38,7 @@ export class TransactionsController {
       );
     }
 
-    this.createTransactionUseCase.execute({
+    return this.createTransactionUseCase.execute({
       amount: dto.amount,
       timestamp,
       receiverClientId: dto.receiverClientId,

@@ -11,8 +11,9 @@ export class CreateTransactionDto {
   @Min(0)
   amount: number;
 
+  @IsOptional()
   @IsISO8601()
-  timestamp: string;
+  timestamp?: string;
 
   @IsOptional()
   @IsString()
