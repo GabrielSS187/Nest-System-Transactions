@@ -4,7 +4,7 @@ export class BadRequestResponseDto {
   @ApiProperty({ example: 400 })
   statusCode: number;
 
-  @ApiProperty({ example: 'Campo "timestamp" inválido.' })
+  @ApiProperty({ example: 'Invalid timestamp.' })
   message: string;
 
   @ApiProperty({ example: 'Bad Request' })
@@ -15,7 +15,7 @@ export class UnprocessableResponseDto {
   @ApiProperty({ example: 422 })
   statusCode: number;
 
-  @ApiProperty({ example: 'Timestamp não pode estar no futuro.' })
+  @ApiProperty({ example: 'Timestamp cannot be in the future.' })
   message: string;
 
   @ApiProperty({ example: 'Unprocessable Entity' })
