@@ -2,7 +2,7 @@ import { CreateTransactionUseCase } from './create-transaction.use-case';
 import { InMemoryTransactionsRepository } from '../../infra/repositories/in-memory/in-memory-transactions.repository';
 
 describe('CreateTransactionUseCase', () => {
-  it('should create a transaction', () => {
+  it('deve criar uma transação', () => {
     const repository = new InMemoryTransactionsRepository();
     const useCase = new CreateTransactionUseCase(repository);
 

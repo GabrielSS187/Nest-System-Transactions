@@ -4,7 +4,7 @@ import { InMemoryTransactionsRepository } from '../../infra/repositories/in-memo
 import { Transaction } from '../../domain/entities/transaction.entity';
 
 describe('DeleteAllTransactionsUseCase', () => {
-  it('should delete all transactions', () => {
+  it('deve excluir todas as transações', () => {
     const repository = new InMemoryTransactionsRepository();
     repository.create(new Transaction(10, new Date()));
     repository.create(new Transaction(20, new Date()));

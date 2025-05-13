@@ -4,7 +4,7 @@ import { InMemoryTransactionsRepository } from '../../infra/repositories/in-memo
 import { Transaction } from '../../domain/entities/transaction.entity';
 
 describe('GetStatisticsUseCase', () => {
-  it('should calculate statistics for transactions within 60 seconds', () => {
+  it('deve calcular estatísticas para transações em 60 segundos', () => {
     const repo = new InMemoryTransactionsRepository();
     const now = new Date();
 
@@ -22,7 +22,7 @@ describe('GetStatisticsUseCase', () => {
     expect(stats.max).toBe(20);
   });
 
-  it('should return zeroed statistics if no valid transactions exist', () => {
+  it('deve retornar estatísticas zeradas se não houver transações válidas', () => {
     const repo = new InMemoryTransactionsRepository();
     const useCase = new GetStatisticsUseCase(repo);
     const stats = useCase.execute();
