@@ -1,5 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { TransactionsRepository } from '../../infra/repositories/transactions.repository';
+import { Inject, Injectable } from '@nestjs/common';
+import {
+  TRANSACTIONS_REPOSITORY,
+  TransactionsRepository,
+} from '../../infra/repositories/transactions.repository';
 import { Transaction } from '../../domain/entities/transaction.entity';
 
 interface CreateTransactionInput {
@@ -10,6 +13,7 @@ interface CreateTransactionInput {
 @Injectable()
 export class CreateTransactionUseCase {
   constructor(
+    @Inject(TRANSACTIONS_REPOSITORY)
     private readonly transactionsRepository: TransactionsRepository,
   ) {}
 
