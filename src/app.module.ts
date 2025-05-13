@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 
+import { UseCasesModule } from './app/use-cases/se-cases.module';
 import { TransactionsController } from './infra/http/controllers/transactions.controller';
 import { HealthController } from './infra/http/controllers/health.controller';
 import { InMemoryTransactionsRepository } from './infra/repositories/in-memory/in-memory-transactions.repository';
-import { CreateTransactionUseCase } from './app/use-cases/create-transaction.use-case';
-import { DeleteAllTransactionsUseCase } from './app/use-cases/delete-all-transactions.use-case';
-import { GetStatisticsUseCase } from './app/use-cases/get-statistics.use-case';
 import { TRANSACTIONS_REPOSITORY } from './infra/repositories/transactions.repository';
 
 import { LoggerModule } from 'nestjs-pino';
@@ -17,7 +15,6 @@ import { StatisticsGateway } from './infra/websockets/statistics.gateway';
 
 const isDev = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
-
 @Module({
   imports: [
     ThrottlerModule.forRoot({
@@ -55,6 +52,7 @@ const isTest = process.env.NODE_ENV === 'test';
           }),
       },
     }),
+    UseCasesModule,
   ],
   controllers: [TransactionsController, HealthController],
   providers: [
@@ -66,9 +64,6 @@ const isTest = process.env.NODE_ENV === 'test';
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
-    CreateTransactionUseCase,
-    DeleteAllTransactionsUseCase,
-    GetStatisticsUseCase,
     StatisticsGateway,
   ],
 })
