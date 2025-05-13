@@ -11,12 +11,22 @@ import { TRANSACTIONS_REPOSITORY } from './infra/repositories/transactions.repos
 import { LoggerModule } from 'nestjs-pino';
 import { IncomingMessage } from 'http';
 import pino from 'pino';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 const isDev = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60,
+          limit: 20,
+        },
+      ],
+    }),
     LoggerModule.forRoot({
       pinoHttp: {
         redact: ['req.headers.authorization'],
@@ -50,6 +60,10 @@ const isTest = process.env.NODE_ENV === 'test';
     {
       provide: TRANSACTIONS_REPOSITORY,
       useClass: InMemoryTransactionsRepository,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
     },
     CreateTransactionUseCase,
     DeleteAllTransactionsUseCase,
