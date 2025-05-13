@@ -4,21 +4,32 @@ import {
   TransactionsRepository,
 } from '../../infra/repositories/transactions.repository';
 import { Transaction } from '../../domain/entities/transaction.entity';
+import { StatisticsGateway } from '../../infra/websockets/statistics.gateway';
 
 interface CreateTransactionInput {
   amount: number;
   timestamp: Date;
+  receiverClientId?: string;
 }
 
 @Injectable()
 export class CreateTransactionUseCase {
   constructor(
     @Inject(TRANSACTIONS_REPOSITORY)
-    private readonly transactionsRepository: TransactionsRepository,
+    private readonly repo: TransactionsRepository,
+    private readonly gateway: StatisticsGateway,
   ) {}
 
   execute(input: CreateTransactionInput): void {
     const transaction = new Transaction(input.amount, input.timestamp);
-    this.transactionsRepository.create(transaction);
+
+    this.repo.create('global', transaction);
+
+    if (input.receiverClientId) {
+      this.gateway.emitToClient(input.receiverClientId, {
+        amount: input.amount,
+        timestamp: input.timestamp,
+      });
+    }
   }
 }

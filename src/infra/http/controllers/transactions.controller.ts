@@ -18,7 +18,7 @@ import { GetStatisticsUseCase } from '../../../app/use-cases/get-statistics.use-
 export class TransactionsController {
   constructor(
     private readonly createTransactionUseCase: CreateTransactionUseCase,
-    private readonly deleteAllTransactionsUseCase: DeleteAllTransactionsUseCase,
+    private readonly deleteAllUseCase: DeleteAllTransactionsUseCase,
     private readonly getStatisticsUseCase: GetStatisticsUseCase,
   ) {}
 
@@ -26,32 +26,35 @@ export class TransactionsController {
   @HttpCode(HttpStatus.CREATED)
   create(@Body() dto: CreateTransactionDto): void {
     const timestamp = new Date(dto.timestamp);
+
     if (isNaN(timestamp.getTime())) {
-      throw new BadRequestException('Invalid timestamp format');
+      throw new BadRequestException('Invalid timestamp');
     }
 
     const now = new Date();
     if (timestamp > now) {
       throw new UnprocessableEntityException(
-        'Transaction timestamp is in the future',
+        'Timestamp cannot be in the future',
       );
     }
 
     this.createTransactionUseCase.execute({
       amount: dto.amount,
       timestamp,
+      receiverClientId: dto.receiverClientId,
     });
   }
 
   @Delete()
   @HttpCode(HttpStatus.OK)
   deleteAll(): void {
-    this.deleteAllTransactionsUseCase.execute();
+    this.deleteAllUseCase.execute();
   }
 
   @Get('/statistics')
   @HttpCode(HttpStatus.OK)
   getStatistics() {
+    // retorna estatísticas globais para fins de debug (ou você pode remover)
     return this.getStatisticsUseCase.execute();
   }
 }

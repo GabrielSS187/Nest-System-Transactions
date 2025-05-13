@@ -1,4 +1,10 @@
-import { IsNumber, IsISO8601, Min } from 'class-validator';
+import {
+  IsNumber,
+  IsISO8601,
+  Min,
+  IsString,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateTransactionDto {
   @IsNumber()
@@ -7,4 +13,8 @@ export class CreateTransactionDto {
 
   @IsISO8601()
   timestamp: string;
+
+  @IsOptional()
+  @IsString()
+  receiverClientId?: string;
 }
