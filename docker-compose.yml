@@ -3,8 +3,11 @@ services:
     build: .
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=${NODE_ENV}
+      - LOG_OUTPUT=${LOG_OUTPUT}
     restart: unless-stopped
     volumes:
       - ./logs:/app/logs

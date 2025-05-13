@@ -2,8 +2,11 @@ services:
   tests:
     build: .
     command: sh -c "yarn test && yarn test:e2e"
+    env_file:
+      - .env
     environment:
-      - NODE_ENV=test
+      - NODE_ENV=${NODE_ENV}
+      - LOG_OUTPUT=${LOG_OUTPUT}
     volumes:
       - .:/app
       - /app/node_modules
