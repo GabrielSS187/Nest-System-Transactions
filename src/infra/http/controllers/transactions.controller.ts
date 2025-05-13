@@ -54,7 +54,6 @@ export class TransactionsController {
   @Get('/statistics')
   @HttpCode(HttpStatus.OK)
   getStatistics() {
-    // retorna estatísticas globais para fins de debug (ou você pode remover)
     return this.getStatisticsUseCase.execute();
   }
 }
