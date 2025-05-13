@@ -6,6 +6,7 @@ import { DeleteAllTransactionsUseCase } from './delete-all-transactions.use-case
 import { GetStatisticsUseCase } from './get-statistics.use-case';
 import { TRANSACTIONS_REPOSITORY } from '../../infra/repositories/transactions.repository';
 import { InMemoryTransactionsRepository } from '../../infra/repositories/in-memory/in-memory-transactions.repository';
+import { StatisticsGateway } from '../../infra/websockets/statistics.gateway';
 
 @Module({
   providers: [
@@ -16,6 +17,7 @@ import { InMemoryTransactionsRepository } from '../../infra/repositories/in-memo
     CreateTransactionUseCase,
     DeleteAllTransactionsUseCase,
     GetStatisticsUseCase,
+    StatisticsGateway,
   ],
   exports: [
     CreateTransactionUseCase,

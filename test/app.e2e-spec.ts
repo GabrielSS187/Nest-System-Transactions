@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import helmet from 'helmet';
+import { Express } from 'express';
 
 describe('TransactionsController (e2e)', () => {
   let app: INestApplication;
@@ -69,5 +71,47 @@ describe('TransactionsController (e2e)', () => {
     const res = await request(app.getHttpServer()).get('/health');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ status: 'ok' });
+  });
+});
+
+describe('Rate Limiting', () => {
+  let app: INestApplication;
+  let server: Express;
+
+  beforeAll(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+
+    server = app.getHttpServer() as Express; // 👈 Aqui o cast correto
+  });
+
+  it('should return 429 after too many requests', async () => {
+    const endpoint = '/transactions/statistics';
+    const testIP = '123.123.123.123';
+
+    // Executa 20 requisições em paralelo
+    const requests = Array.from({ length: 20 }).map(() =>
+      request(server).get(endpoint).set('x-forwarded-for', testIP),
+    );
+    await Promise.all(requests);
+
+    // A 21ª deve ser bloqueada
+    const response = await request(server)
+      .get(endpoint)
+      .set('x-forwarded-for', testIP);
+
+    expect(response.status).toBe(429);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    expect((response.body as any).message).toBe(
+      'ThrottlerException: Too Many Requests',
+    );
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });
