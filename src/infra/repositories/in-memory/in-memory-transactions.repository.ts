@@ -4,23 +4,17 @@ import { Transaction } from '../../../domain/entities/transaction.entity';
 
 @Injectable()
 export class InMemoryTransactionsRepository implements TransactionsRepository {
-  private transactionsByClient = new Map<string, Transaction[]>();
+  private transactions: Transaction[] = [];
 
-  create(clientId: string, transaction: Transaction): void {
-    const transactions = this.transactionsByClient.get(clientId) ?? [];
-    transactions.push(transaction);
-    this.transactionsByClient.set(clientId, transactions);
+  create(transaction: Transaction): void {
+    this.transactions.push(transaction);
   }
 
   deleteAll(): void {
-    this.transactionsByClient.clear();
-  }
-
-  findByClient(clientId: string): Transaction[] {
-    return this.transactionsByClient.get(clientId) ?? [];
+    this.transactions = [];
   }
 
   findAll(): Transaction[] {
-    return Array.from(this.transactionsByClient.values()).flat();
+    return this.transactions;
   }
 }

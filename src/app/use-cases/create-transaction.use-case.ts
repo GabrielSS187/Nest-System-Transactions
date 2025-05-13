@@ -16,14 +16,14 @@ interface CreateTransactionInput {
 export class CreateTransactionUseCase {
   constructor(
     @Inject(TRANSACTIONS_REPOSITORY)
-    private readonly repo: TransactionsRepository,
+    private readonly transactionsRepository: TransactionsRepository,
     private readonly gateway: StatisticsGateway,
   ) {}
 
   execute(input: CreateTransactionInput): void {
     const transaction = new Transaction(input.amount, input.timestamp);
 
-    this.repo.create('global', transaction);
+    this.transactionsRepository.create(transaction);
 
     if (input.receiverClientId) {
       this.gateway.emitToClient(input.receiverClientId, {
