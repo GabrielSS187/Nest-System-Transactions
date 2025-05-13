@@ -1,0 +1,46 @@
+name: CI/CD - Nest Transactions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: 🧪 Rodar testes unitários + e2e
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛒 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 📦 Instalar dependências
+        run: yarn install --frozen-lockfile
+
+      - name: 🧪 Rodar testes unitários
+        run: yarn test
+
+      - name: 🧪 Rodar testes E2E
+        run: yarn test:e2e
+
+  deploy:
+    if: false
+    name: 🚀 Deploy em produção
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛒 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 🔐 Configurar SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 22
+          script: |
+            cd /caminho/do/projeto/no/servidor
+            git pull origin main
+            ./deploy.sh
