@@ -12,10 +12,12 @@ export class GetStatisticsUseCase {
   ) {}
 
   execute() {
+    const TIME_WINDOW_MS = 60_000;
+
     const now = new Date();
     const transactions = this.transactionsRepository
       .findAll()
-      .filter((t) => now.getTime() - t.timestamp.getTime() <= 60000);
+      .filter((t) => now.getTime() - t.timestamp.getTime() <= TIME_WINDOW_MS);
 
     const amounts = transactions.map((t) => t.amount);
     const count = amounts.length;
