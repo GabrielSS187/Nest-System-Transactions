@@ -1,0 +1,13 @@
+services:
+  tests:
+    build: .
+    command: sh -c "yarn test && yarn test:e2e"
+    environment:
+      - NODE_ENV=test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - nest-api
+    profiles:
+      - test
