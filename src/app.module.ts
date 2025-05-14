@@ -30,14 +30,13 @@ const isTest = process.env.NODE_ENV === 'test';
         genReqId: (req: IncomingMessage) =>
           (req.headers['x-request-id'] as string) || crypto.randomUUID(),
 
-        ...(!isDev &&
-          !isTest && {
-            stream: pino.destination({
-              dest: 'logs/app.log',
-              mkdir: true,
-              sync: false,
-            }),
+        ...(!isDev && {
+          stream: pino.destination({
+            dest: 'logs/app.log',
+            mkdir: true,
+            sync: false,
           }),
+        }),
       },
     }),
     UseCasesModule,
