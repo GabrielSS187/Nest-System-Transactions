@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { UseCasesModule } from './app/use-cases/se-cases.module';
+import { UseCasesModule } from './app/use-cases/use-cases.module';
 import { TransactionsController } from './infra/http/controllers/transactions.controller';
 import { HealthController } from './infra/http/controllers/health.controller';
 

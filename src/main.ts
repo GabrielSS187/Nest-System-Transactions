@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
@@ -10,6 +12,9 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
+  // app.set('trust proxy', true);
+  app.setGlobalPrefix('api');
+
   app.useLogger(app.get(Logger));
   app.use(helmet());
   app.useGlobalPipes(
@@ -19,7 +24,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
     .setTitle('Transactions API')

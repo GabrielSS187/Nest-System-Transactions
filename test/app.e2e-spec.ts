@@ -89,7 +89,7 @@ describe('Rate Limiting', () => {
     server = app.getHttpServer() as Express; // 👈 Aqui o cast correto
   });
 
-  it('should return 429 after too many requests', async () => {
+  it('Deve retornar 429 após muitas solicitações', async () => {
     const endpoint = '/transactions/statistics';
     const testIP = '123.123.123.123';
 
