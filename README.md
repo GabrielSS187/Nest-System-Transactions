@@ -126,6 +126,8 @@ Exemplo de resposta:
 
 - Auth esperada: clientId via auth ou query. O valor pode ser qualquer coisa.
 
+- Link para testa na web: https://firecamp.dev/
+
 Exemplo (usando Socket.IO):
 ```js
 import { io } from "socket.io-client";
