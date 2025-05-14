@@ -27,8 +27,22 @@ import { CustomThrottlerGuard } from './infra/http/guards/custom-throttler.guard
     LoggerModule.forRoot({
       pinoHttp: {
         redact: ['req.headers.authorization'],
+
         genReqId: (req: IncomingMessage) =>
-          (req.headers['x-request-id'] as string) || crypto.randomUUID(),
+          (req.headers['x-request-id'] as string) || 'underfined',
+
+        ...(process.env.NODE_ENV === 'test'
+          ? { level: 'silent' }
+          : {
+              transport: {
+                target: 'pino-pretty',
+                options: {
+                  colorize: true,
+                  translateTime: 'SYS:standard',
+                  singleLine: false,
+                },
+              },
+            }),
       },
     }),
     UseCasesModule,
