@@ -78,7 +78,10 @@ describe('TransactionsController (e2e)', () => {
 
     // Executa 20 requisições em paralelo
     const requests = Array.from({ length: 20 }).map(() =>
-      request(app.getHttpServer()).get(endpoint).set('x-forwarded-for', testIP),
+      request(app.getHttpServer())
+        .get(endpoint)
+        .set('x-forwarded-for', testIP)
+        .timeout({ response: 5000 }),
     );
     await Promise.all(requests);
 
