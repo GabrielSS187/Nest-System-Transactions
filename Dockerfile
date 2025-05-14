@@ -1,20 +1,23 @@
-# Dockerfile
-
-FROM node:22-alpine
+# Etapa de construção
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
 COPY package.json yarn.lock ./
-
 RUN yarn install --frozen-lockfile
 
 COPY . .
-
-# Adiciona ferramentas úteis para dev
-RUN yarn add -D ts-node typescript @nestjs/cli
-
-# Compila para produção apenas no perfil prod (ignore em dev)
 RUN yarn build
+
+# Etapa de produção
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/package.json /app/yarn.lock ./
+RUN yarn install --frozen-lockfile --production
+
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
