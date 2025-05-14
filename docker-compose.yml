@@ -2,36 +2,37 @@ version: '3.9'
 
 services:
   nest-api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     env_file:
       - .env
     environment:
-      - NODE_ENV=${NODE_ENV}
+      - NODE_ENV=development
       - LOG_OUTPUT=${LOG_OUTPUT}
     volumes:
       - .:/app
-      - /app/node_modules
-      - ./logs:/app/logs # Este será montado sempre, mas pode ser inofensivo no dev
+      - nest_api_node_modules:/app/node_modules
     command: yarn start:dev
     ports:
       - '3000:3000'
     restart: unless-stopped
     profiles:
       - dev
-      - prod
 
-  tests:
-    build: .
-    command: sh -c "yarn test && yarn test:e2e"
+  nest-api-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
     env_file:
       - .env
     environment:
-      - NODE_ENV=${NODE_ENV}
-      - LOG_OUTPUT=${LOG_OUTPUT}
-    volumes:
-      - .:/app
-      - /app/node_modules
-    depends_on:
-      - nest-api
+      - NODE_ENV=production
+    ports:
+      - '3001:3000'
+    restart: unless-stopped
     profiles:
-      - test
+      - prod
+
+volumes:
+  nest_api_node_modules:

@@ -14,6 +14,9 @@ FROM node:22-alpine
 
 WORKDIR /app
 
+# Adiciona usuário não root para segurança
+RUN addgroup app && adduser -S -G app app
+
 COPY --from=builder /app/package.json /app/yarn.lock ./
 RUN yarn install --frozen-lockfile --production
 
