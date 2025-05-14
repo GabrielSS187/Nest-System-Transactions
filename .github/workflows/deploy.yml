@@ -24,23 +24,13 @@ jobs:
         run: yarn test:e2e
 
   deploy:
-    if: false
     name: 🚀 Deploy em produção
     needs: test
     runs-on: ubuntu-latest
-
     steps:
-      - name: 🛒 Checkout do código
-        uses: actions/checkout@v3
-
-      - name: 🔐 Configurar SSH
-        uses: appleboy/ssh-action@master
+      - name: 🔄 Implantar na Render
+        uses: JorgeLNJunior/render-deploy@v1.4.5
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          port: 22
-          script: |
-            cd /caminho/do/projeto/no/servidor
-            git pull origin main
-            ./deploy.sh
+          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          wait_deploy: true
