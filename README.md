@@ -120,7 +120,7 @@ Exemplo de resposta:
 - Verifica se o sistema está online.
 
 ## 📊 WebSocket - Estatísticas em tempo real
-- URL: http//localhost:3000/
+- URL: http://localhost:3000/
 
 - Evento emitido: statistics
 
