@@ -7,8 +7,9 @@ import { HealthController } from './infra/http/controllers/health.controller';
 import { LoggerModule } from 'nestjs-pino';
 import { IncomingMessage } from 'http';
 import pino from 'pino';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { CustomThrottlerGuard } from './infra/http/guards/custom-throttler.guard';
 
 const isDev = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
@@ -44,7 +45,7 @@ const isTest = process.env.NODE_ENV === 'test';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard,
+      useClass: CustomThrottlerGuard,
     },
   ],
 })
