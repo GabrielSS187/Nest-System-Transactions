@@ -26,7 +26,15 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Transactions API')
-    .setDescription('API para registro e estatísticas de transações')
+    .setDescription(
+      'API para registro e estatísticas de transações.\n\n' +
+        '### Socket.IO\n' +
+        '**URL:** `http://<host>/`\n' +
+        '**Evento emitido:** `statistics`\n' +
+        '**Auth esperada:** `clientId` via `auth` ou `query` na conexão.\n\n' +
+        'O valor de `clientId` pode ser qualquer coisa ex: `ws-user`.\n\n' +
+        'Conecte-se via WebSocket para receber estatísticas personalizadas em tempo real.',
+    )
     .setVersion('1.0')
     .build();
 

@@ -28,7 +28,7 @@ export class CreateTransactionDto {
 
   @ApiPropertyOptional({
     description: 'ID do cliente WebSocket que vai receber a transação.',
-    example: 'client-abc123',
+    example: 'ws-user',
   })
   @IsOptional()
   @IsString()
