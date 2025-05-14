@@ -18,7 +18,8 @@ const isTest = process.env.NODE_ENV === 'test';
     ThrottlerModule.forRoot({
       throttlers: [
         {
-          ttl: 60,
+          name: 'base',
+          ttl: 1000 * 60, // 1 min
           limit: 20,
         },
       ],
