@@ -19,6 +19,7 @@ API RESTful construída com **NestJS** para registrar transações financeiras e
 - [📝 Documentação Swagger](#-documentação-swagger)
 - [📦 CI/CD](#-cicd)
 - [📁 Variáveis de ambiente](#-variáveis-de-ambiente)
+- [🧑‍💻 Autor](#-Autor)
 
 ---
 
@@ -60,6 +61,7 @@ yarn start:dev
 ---
 
 ### 🐳 Com Docker
+- Obrigatório ter o docker instalado na sua máquina*.
 
 ```bash
 # Subir ambiente de desenvolvimento
@@ -139,7 +141,8 @@ socket.on("statistics", (data) => {
 
 ---
 
-🧪 Testes
+## 🧪 Testes
+
 ✅ Localmente
 Execute todos os testes (unitários e de integração):
 ```bash
@@ -149,6 +152,8 @@ yarn test:cov    # Cobertura de testes
 ```
 
 🐳 Com Docker
+- Obrigatório ter o docker instalado na sua máquina*.
+
 Execute os testes completos (unitários + e2e + coverage) com Docker:
 ```bash
 docker compose --profile test run --rm nest-api-test
@@ -156,7 +161,7 @@ docker compose --profile test run --rm nest-api-test
 ---
 
 ## 🧱 Arquitetura
-Estruturado com base na Clean Architecture:
+Estruturado com base na Clean Architecture e DDD (Domain Driven Design):
 
 - domain/ → Entidades de domínio
 
