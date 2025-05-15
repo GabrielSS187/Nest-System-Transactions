@@ -7,7 +7,7 @@ API RESTful construída com **NestJS** para registrar transações financeiras e
 ## 📋 Sumário
 
 - [🚀 API na Nuvem ](#-api-na-nuvem)
-- [📽️ Vídeo Explicando as Etapas de instalação e Testes](#https://github.com/GabrielSS187/Nest-System-Transactions?tab=readme-ov-file#%EF%B8%8F-v%C3%ADdeo-explicando-as-etapas-de-instala%C3%A7%C3%A3o-e-testes)
+- [📽️ Vídeo Explicando as Etapas de instalação e Testes](https://github.com/GabrielSS187/Nest-System-Transactions?tab=readme-ov-file#%EF%B8%8F-v%C3%ADdeo-explicando-as-etapas-de-instala%C3%A7%C3%A3o-e-testes)
 - [📦 Tecnologias](#-tecnologias)
 - [🚀 Como executar](#-como-executar)
   - [🔧 Requisitos](#-requisitos)
