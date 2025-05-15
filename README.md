@@ -7,7 +7,7 @@ API RESTful construída com **NestJS** para registrar transações financeiras e
 ## 📋 Sumário
 
 - [🚀 API na Nuvem ](#-api-na-nuvem)
-- [📽️ Vídeo Explicando as Etapas de instalação e Testes](#-#vídeo-explicando-as-etapas-de-instalacao-e-testes)
+- [📽️ Vídeo Explicando as Etapas de instalação e Testes](#-vídeo-explicando-as-etapas-de-instalacao-e-testes)
 - [📦 Tecnologias](#-tecnologias)
 - [🚀 Como executar](#-como-executar)
   - [🔧 Requisitos](#-requisitos)
