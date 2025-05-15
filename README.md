@@ -6,7 +6,8 @@ API RESTful construída com **NestJS** para registrar transações financeiras e
 
 ## 📋 Sumário
 
-- [ 🚀 API na Nuvem ](#-api-na-nuvem)
+- [🚀 API na Nuvem ](#-api-na-nuvem)
+- [📽️ Vídeo Explicando as Etapas de instalação e Testes](#-vídeo-explicando-as-etapas-de-instalação-e-testes)
 - [📦 Tecnologias](#-tecnologias)
 - [🚀 Como executar](#-como-executar)
   - [🔧 Requisitos](#-requisitos)
@@ -27,6 +28,12 @@ API RESTful construída com **NestJS** para registrar transações financeiras e
 ## 🚀 API na Nuvem
 - URL: https://nest-system-transactions.onrender.com/api/
 - DOC: https://nest-system-transactions.onrender.com/swagger
+
+---
+
+## 📽️ Vídeo Explicando as Etapas de instalação e Testes
+- Link do Vídeo: https://drive.google.com/file/d/1FjQXHKZf5rKDjLrubIRx83JpqYYHu1CS/view
+
 
 ---
 
