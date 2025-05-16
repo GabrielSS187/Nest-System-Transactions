@@ -83,6 +83,8 @@ docker compose --profile dev up --build
 # Subir ambiente de produção
 docker compose --profile prod up --build
 ```
+- A API estará disponível em: http://localhost:3000/api
+- Swagger: http://localhost:3000/swagger
 
 ---
 
