@@ -33,20 +33,16 @@ services:
       - prod
 
   nest-api-test:
-    build:
-      context: .
-      dockerfile: Dockerfile.test
-    env_file:
-      - .env
-    environment:
-      - NODE_ENV=test
+    image: node:22-alpine
+    working_dir: /app
     volumes:
-      - .:/app
-      - nest_api_node_modules:/app/node_modules
-    command: sh -c "yarn test:cov && yarn test:e2e"
-    profiles:
-      - test
+      - .:/app:delegated
+      - npm-cache:/root/.npm
+    command: >
+      sh -c "if [ ! -d node_modules ]; then npm ci; fi &&
+             npm run test && npm run test:e2e"
 
 
 volumes:
+  npm-cache:
   nest_api_node_modules:

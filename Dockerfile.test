@@ -1,14 +1,16 @@
-FROM node:22-alpine
-
+FROM node:22-alpine AS deps
 WORKDIR /app
 
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-COPY . .
-
-# Usa o ambiente de testes como base
+FROM node:22-alpine AS test
+WORKDIR /app
 ENV NODE_ENV=test
 
-# Rodar testes ao iniciar o container
+COPY --from=deps /app/node_modules ./node_modules
+
+COPY . .
+
+# Roda os testes
 CMD ["sh", "-c", "yarn test && yarn test:cov && yarn test:e2e"]
