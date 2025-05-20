@@ -13,4 +13,4 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Roda os testes
-CMD ["sh", "-c", "yarn test && yarn test:cov && yarn test:e2e"]
+CMD ["sh", "-c", "yarn test && yarn test:e2e"]

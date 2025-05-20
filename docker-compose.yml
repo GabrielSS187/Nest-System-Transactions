@@ -40,7 +40,7 @@ services:
       - npm-cache:/root/.npm
     command: >
       sh -c "if [ ! -d node_modules ]; then npm ci; fi &&
-             npm run test && npm run test:e2e"
+             yarn run test && yarn run test:e2e"
 
 
 volumes:
