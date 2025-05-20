@@ -38,10 +38,25 @@ services:
     volumes:
       - .:/app:delegated
       - npm-cache:/root/.npm
+      - nest_api_node_modules:/app/node_modules
+    environment:
+      NODE_ENV: test
     command: >
-      sh -c "if [ ! -d node_modules ]; then npm ci; fi &&
-             yarn run test && yarn run test:e2e"
-
+      sh -c "
+        # 1) garante que o Yarn exista
+        corepack enable &&
+        # 2) instala dependências só se não houver os binários
+        if [ ! -d node_modules/.bin ] || [ -z \"\$(ls -A node_modules)\" ]; then
+          echo '🔧 Instalando dependências...'
+          yarn install --frozen-lockfile
+        fi &&
+        # 3) roda os testes
+        echo '🧪 Rodando testes...'
+        yarn test &&
+        yarn test:e2e
+      "
+    profiles:
+      - test
 
 volumes:
   npm-cache:
