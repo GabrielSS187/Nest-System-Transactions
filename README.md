@@ -27,8 +27,8 @@ API RESTful construída com **NestJS** para registrar transações financeiras e
 ---
 
 ## 🚀 API na Nuvem
-- URL: https://nest-system-transactions.onrender.com/api/
-- DOC: https://nest-system-transactions.onrender.com/swagger
+- URL: https://nest-system-transactions.onrender.com/api
+- DOC: https://nest-system-transactions.onrender.com/docs
 - O meu plano na nuvem é gratuito, então leve em consideração o tempo de latência da aplicação.
 
 ---
@@ -91,7 +91,7 @@ docker compose --profile dev up --build
 docker compose --profile prod up --build
 ```
 - A API estará disponível em: http://localhost:3000/api
-- Swagger: http://localhost:3000/swagger
+- Swagger: http://localhost:3000/docs
 
 ---
 
@@ -211,7 +211,7 @@ Estruturado com base na Clean Architecture e DDD (Domain Driven Design):
 ---
 
 ## 📝 Documentação Swagger
-Acesse em: http://localhost:3000/swagger#/
+Acesse em: http://localhost:3000/docs
 
 Inclui:
 
