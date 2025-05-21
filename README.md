@@ -32,8 +32,13 @@ API RESTful construída com **NestJS** para registrar transações financeiras e
 
 ---
 
-## 📽️ Vídeo Explicando as Etapas de Instalação e Testes
-- Link do Vídeo: https://drive.google.com/file/d/1FjQXHKZf5rKDjLrubIRx83JpqYYHu1CS/view
+# 📽️ Vídeo Explicando as Etapas de Instalação e Testes
+- Link do Vídeo: https://drive.google.com/file/d/1DPwbnns-gtY-nQvJgnpxEioEh-89hDzA/view?usp=sharing
+
+# 📹 Vídeo Construindo CI/CD
+- Vídeo: https://drive.google.com/file/d/1v0bEdVDQH-ytGTOJV8NNxKheED99IjL6/view?usp=sharing
+- Descrição: CI/CD com Github Actions com deploy na cloud da Render.
+- Vídeo e de outro projeto mas os procedimentos foram os mesmos
 
 ---
 
