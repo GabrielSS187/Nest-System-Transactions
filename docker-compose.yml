@@ -41,6 +41,7 @@ services:
       - nest_api_node_modules:/app/node_modules
     environment:
       NODE_ENV: test
+      LOG_OUTPUT: file
     command: >
       sh -c "
         # 1) garante que o Yarn exista
